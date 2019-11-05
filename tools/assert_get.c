@@ -80,6 +80,7 @@ prepare_assert(FILE *in_f, int flags)
 			errx(1, "fido_assert_allow_cred: %s", fido_strerr(r));
 	}
 
+	free(hmac_salt.ptr);
 	free(cdh.ptr);
 	free(id.ptr);
 	free(rpid);
