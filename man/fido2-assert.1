@@ -2,7 +2,7 @@
 .\" Use of this source code is governed by a BSD-style
 .\" license that can be found in the LICENSE file.
 .\"
-.Dd $Mdocdate: June 14 2018 $
+.Dd $Mdocdate: November 5 2019 $
 .Dt FIDO2-ASSERT 1
 .Os
 .Sh NAME
@@ -11,7 +11,7 @@
 .Sh SYNOPSIS
 .Nm
 .Fl G
-.Op Fl dpruv
+.Op Fl dhpruv
 .Op Fl i Ar input_file
 .Op Fl o Ar output_file
 .Ar device
@@ -74,6 +74,9 @@ If
 is not specified,
 .Em es256
 is assumed.
+.It Fl h
+If obtaining an assertion, enable the FIDO2 hmac-secret
+extension.
 .It Fl d
 Causes
 .Nm
@@ -112,7 +115,8 @@ By default,
 will use FIDO2 if supported by the authenticator, and fallback to
 U2F otherwise.
 .It Fl v
-If obtaining an assertion, prompt the user for a PIN and request user verification from the authenticator.
+If obtaining an assertion, prompt the user for a PIN and request
+user verification from the authenticator.
 If a
 .Em tty
 is available,
@@ -141,6 +145,9 @@ client data hash (base64 blob);
 relying party id (UTF-8 string);
 .It
 credential id, if credential not resident (base64 blob);
+.It
+hmac salt, if the FIDO2 hmac-secret extension is enabled
+(base64 blob);
 .El
 .Pp
 When verifying an assertion,
@@ -182,6 +189,9 @@ authenticator data (base64 blob);
 assertion signature (base64 blob);
 .It
 user id, if credential resident (base64 blob);
+.It
+hmac secret, if the FIDO2 hmac-secret extension is enabled
+(base64 blob);
 .El
 .Pp
 When verifying an assertion,
