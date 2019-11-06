@@ -72,6 +72,12 @@ prepare_assert(FILE *in_f, int flags)
 		if ((r = fido_assert_set_uv(assert, FIDO_OPT_TRUE)) != FIDO_OK)
 			errx(1, "fido_assert_set_uv: %s", fido_strerr(r));
 	}
+	if (flags & FLAG_HMAC) {
+		if ((r = fido_assert_set_extensions(assert,
+		    FIDO_EXT_HMAC_SECRET)) != FIDO_OK)
+			errx(1, "fido_assert_set_extensions: %s",
+			    fido_strerr(r));
+	}
 
 	free(cdh.ptr);
 	free(authdata.ptr);
@@ -139,10 +145,13 @@ assert_verify(int argc, char **argv)
 	int ch;
 	int r;
 
-	while ((ch = getopt(argc, argv, "di:pv")) != -1) {
+	while ((ch = getopt(argc, argv, "dhi:pv")) != -1) {
 		switch (ch) {
 		case 'd':
 			flags |= FLAG_DEBUG;
+			break;
+		case 'h':
+			flags |= FLAG_HMAC;
 			break;
 		case 'i':
 			in_path = optarg;

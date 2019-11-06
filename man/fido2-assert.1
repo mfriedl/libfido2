@@ -17,7 +17,7 @@
 .Ar device
 .Nm
 .Fl V
-.Op Fl dpv
+.Op Fl dhpv
 .Op Fl i Ar input_file
 .Ar key_file
 .Op Ar type
@@ -77,6 +77,8 @@ is assumed.
 .It Fl h
 If obtaining an assertion, enable the FIDO2 hmac-secret
 extension.
+If verifying an assertion, check whether the extension data bit was
+signed by the authenticator.
 .It Fl d
 Causes
 .Nm
